@@ -1,34 +1,27 @@
-from src.text_processing import split_sentences
-from src.embeddings import SentenceEmbedder
-from src.similarity import compute_similarity_matrix
-from src.information_gain import compute_information_gain
+from src.analyzer import InformationDensityAnalyzer
 
 
 def main():
 
     text = """
     Artificial intelligence studies intelligent systems.
-    Machine learning allows computers to learn from data.
+    Machine learning learns patterns from data.
     Deep learning is a subset of machine learning.
-    Machine learning algorithms are widely used in AI.
+    Neural networks are widely used in AI systems.
     """
 
-    sentences = split_sentences(text)
+    analyzer = InformationDensityAnalyzer()
 
-    print("\nSentences:")
-    for s in sentences:
-        print("-", s)
+    result = analyzer.analyze(text)
 
-    embedder = SentenceEmbedder()
+    print("\nInformation Density:", result["information_density"])
+    print("Redundancy:", result["redundancy"])
 
-    embeddings = embedder.encode(sentences)
+    if "entropy" in result:
+        print("Semantic Entropy:", result["entropy"])
 
-    sim_matrix = compute_similarity_matrix(embeddings)
-
-    gains = compute_information_gain(sim_matrix)
-
-    print("\nInformation Gain per sentence:")
-    for i, g in enumerate(gains):
+    print("\nInformation Gain:")
+    for i, g in enumerate(result["information_gain"]):
         print(f"S{i+1}: {g:.3f}")
 
 
