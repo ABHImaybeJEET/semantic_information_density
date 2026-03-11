@@ -1,0 +1,5 @@
+sentence,information_gain,label
+Artificial intelligence studies intelligent systems.,1.0,High novelty
+Machine learning learns patterns from data.,0.6157605648040771,Moderate novelty
+Deep learning is a subset of machine learning.,0.517734169960022,Moderate novelty
+Neural networks are widely used in AI systems.,0.44261014461517334,Moderate novelty

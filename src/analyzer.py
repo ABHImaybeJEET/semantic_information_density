@@ -3,6 +3,7 @@ import numpy as np
 from src.config import DEFAULT_EMBEDDING_MODEL
 
 from src.text_processing import split_sentences
+from src.insights import label_sentences
 from src.embeddings import SentenceEmbedder
 from src.similarity import compute_similarity_matrix
 from src.information_gain import compute_information_gain
@@ -40,6 +41,8 @@ class InformationDensityAnalyzer:
         # novelty / information gain
         info_gain = compute_information_gain(sim_matrix)
 
+        sentence_labels = label_sentences(info_gain)
+
         # redundancy calculation
         if len(sentences) > 1:
             redundancy = np.mean(
@@ -51,7 +54,9 @@ class InformationDensityAnalyzer:
         result = {
             "sentences": sentences,
             "information_gain": info_gain,
-            "redundancy": float(redundancy)
+            "sentence_labels": sentence_labels,
+            "redundancy": float(redundancy),
+            "similarity_matrix": sim_matrix
         }
 
         # optional semantic clustering
